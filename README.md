@@ -1,1 +1,1 @@
-# Discord Bot
+# Parhelion's Discord Bot
