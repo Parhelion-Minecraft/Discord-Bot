@@ -27,6 +27,6 @@ fs.readdir("./commands/", (err, files) => {
     let props = require(`./commands/${file}`);
     let commandName = file.split(".")[0];
     console.log(`Chargement en cours de la commande ${commandName}.`);
-    client.commands.set(commandName, props)
+    client.commands.set(commandName, props);
   });
 });
