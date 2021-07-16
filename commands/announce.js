@@ -16,7 +16,7 @@ exports.run = (client, message, args) => {
         hook.send('', {
             "embeds": [
                 {
-                    "description": message.replace('pm.announce', ""),
+                    "description": message.content.replace('pm.announce', ""),
                     "color": 5814783
                 }
             ]
