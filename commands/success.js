@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
             message.channel.send(too_long);
         } else {
             message.delete();
-            message.channel.send(`https://minecraftskinstealer.com/achievement/1/Succès%20débloqué%20!/${text}`);
+            message.channel.send(`https://minecraftskinstealer.com/achievement/1/Succès%20débloqué%20!/${text.replace(/ /g, "%20")}`);
         }
     }
 }
