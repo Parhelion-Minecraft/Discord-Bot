@@ -20,6 +20,13 @@ exports.run = (client, message, args) => {
                     "color": 5814783
                 }
             ]
-        });
+        })
+            .then(() => {
+                message.channel.send("Annonce publiée avec succès !");
+            })
+            .catch(err => {
+                message.channel.send("Une erreur est survenue. Merci de consulter la console.");
+                console.error(err);
+            })
     }
 }
