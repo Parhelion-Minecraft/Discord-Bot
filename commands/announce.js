@@ -17,7 +17,7 @@ exports.run = (client, message, args) => {
             "embeds": [
                 {
                     "description": message.content.replace('pm.announce', ""),
-                    "color": 5814783
+                    "color": 159997
                 }
             ]
         })
