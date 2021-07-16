@@ -4,7 +4,7 @@ exports.run = (client, message, args) => {
 
     const text = message.content.replace("pm.success ", "");
 
-    if (text === "") {
+    if (text === "pm.success") {
         const no_arg = new MessageEmbed()
             .setAuthor("Parhelion", message.guild.iconURL())
             .setTitle("Erreur")
