@@ -22,6 +22,8 @@ exports.run = (client, message, args) => {
             ]
         })
             .then(() => {
+                message.delete();
+                
                 message.channel.send("Annonce publiée avec succès !");
             })
             .catch(err => {
