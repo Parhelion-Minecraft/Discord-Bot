@@ -1,36 +1,32 @@
-const Discord = require("discord.js");
-const bot = new Discord.Client();
-require("dotenv").config();
-const fs = require("fs");
-const cli = require("cli-colors");
-const { PREFIX } = require("./source/essentials/config.js");
+const Discord = require('discord.js');
+const client = new Discord.Client();
 
-bot.login(process.env.TOKEN);
+require('dotenv').config();
 
-bot.commands = new Discord.Collection();
-fs.readdir("./source/commands/", (error, f) => {
-  if (error) console.log(cli.red(error));
+const fs = require('fs');
+const Enmap = require('enmap');
 
-  let commandes = f.filter((f) => f.split(".").pop() === "js");
-  if (commandes.length <= 0)
-    return console.log(cli.red("[ERROR] Aucunes commandes trouvées"));
+client.login(process.env.token);
 
-  commandes.forEach((f) => {
-    let commande = require(`./source/commands/${f}`);
-    console.log(cli.green(`[COMMANDE] → ${f} commande chargée`));
-    bot.commands.set(commande.help.name, commande);
+fs.readdir("./events/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    const event = require(`./events/${file}`);
+    let eventName = file.split(".")[0];
+    console.log(`Chargement en cours de l'événement ${eventName}.`);
+    client.on(eventName, event.bind(null, client));
   });
 });
 
-fs.readdir("./source/events/", (error, f) => {
-  if (error) console.log(cli.red(error));
-  console.log(cli.yellow(`[EVENT] → ${f.length} events chargés`));
-  console.log("------------------------------------");
+client.commands = new Enmap();
 
-  f.forEach((f) => {
-    const events = require(`./source/events/${f}`);
-    const event = f.split(".")[0];
-
-    bot.on(event, events.bind(null, bot));
+fs.readdir("./commands/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/${file}`);
+    let commandName = file.split(".")[0];
+    console.log(`Chargement en cours de la commande ${commandName}.`);
+    client.commands.set(commandName, props)
   });
 });
