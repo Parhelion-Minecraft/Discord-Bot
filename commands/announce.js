@@ -17,9 +17,18 @@ exports.run = (client, message, args) => {
             "embeds": [
                 {
                     "description": message.content.replace('pm.announce', ""),
-                    "color": 5814783
+                    "color": 159997
                 }
             ]
-        });
+        })
+            .then(() => {
+                message.delete();
+                
+                message.channel.send("Annonce publiée avec succès !");
+            })
+            .catch(err => {
+                message.channel.send("Une erreur est survenue. Merci de consulter la console.");
+                console.error(err);
+            })
     }
 }
