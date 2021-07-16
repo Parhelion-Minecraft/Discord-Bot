@@ -12,5 +12,3 @@ module.exports = (client, member) => {
 
     member.guild.members.cache.get(member.user.id).roles.add(config.member_role);
 }
-
-//dUA6hZK4
