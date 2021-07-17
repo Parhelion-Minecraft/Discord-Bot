@@ -12,7 +12,7 @@ module.exports = (client, reaction, user) => {
 
         client.guilds.cache.get(config.server_id).channels.create(user.id, { parent: config.ticket_category })
             .then(channel => {
-                channel.overwritePermissions([{ id: user.id, alow: ["VIEW_CHANNEL", "SEND_MESSAGES"] }])
+                channel.overwritePermissions([{ id: user.id, allow: ["VIEW_CHANNEL", "SEND_MESSAGES"] }])
                     .then(() => {
                         channel.send(`Ticket créé par <@${user.id}>`);
 
