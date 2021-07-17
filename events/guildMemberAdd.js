@@ -5,7 +5,7 @@ module.exports = (client, member) => {
     const greating_embed = new MessageEmbed()
         .setAuthor("Parhelion", member.guild.iconURL())
         .setTitle("Bienvenue !")
-        .setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueilliez-le comme il se doit !`)
+        .setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit !`)
         .setThumbnail(member.user.displayAvatarURL())
 
     client.channels.cache.get(config.greatings_channel).send(greating_embed);
