@@ -11,20 +11,20 @@ exports.run = (client, message, args) => {
 
         message.channel.send(no_perm);
     } else {
-        const hook = new WebhookClient(config.announcements_webhook["id"], config.announcements_webhook["token"]);
+        const hook = new WebhookClient(config.poll_webhook["id"], config.poll_webhook["token"]);
 
         hook.send('', {
             "embeds": [
                 {
-                    "description": message.content.replace('pm.announce', ""),
-                    "color": "#159997"
+                    "description": message.content.replace('pm.poll', ""),
+                    "color": "#FEC8A1"
                 }
             ]
         })
             .then(() => {
                 message.delete();
                 
-                message.channel.send("Annonce publiée avec succès !");
+                message.channel.send("Sondage publié avec succès !");
             })
             .catch(err => {
                 message.channel.send("Une erreur est survenue. Merci de consulter la console.");
