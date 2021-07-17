@@ -1,5 +1,16 @@
 module.exports = (client, message) => {
+    const config = require('../config.json');
     const { MessageEmbed } = require('discord.js');
+
+    if (message.channel.id === config.poll_channel) {
+        const emojis = ["✔️", "❌"];
+
+        emojis.forEach((element, i) => {
+            setTimeout(() => {
+                message.react(element)
+            }, 200 * i);
+        });
+    }
 
     if (message.author.bot) return;
 
