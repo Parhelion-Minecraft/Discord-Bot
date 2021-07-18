@@ -9,7 +9,7 @@ exports.run = (client, message, args) => {
             .setColor("#FF2200")
             .setDescription(`Vous devez être administrateur pour pouvoir effectuer cette commande !`)
 
-        message.channel.send(no_perm);
+        message.channel.send({ embeds: [no_perm] });
     } else {
         const hook = new WebhookClient(config.announcements_webhook["id"], config.announcements_webhook["token"]);
 

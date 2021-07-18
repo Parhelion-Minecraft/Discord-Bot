@@ -35,7 +35,7 @@ module.exports = (client, message) => {
             .setDescription('Vous avez tenté d\'exécuter une commande inexistante.')
             .setTimestamp()
 
-        return message.channel.send(noexist_cmd);
+        return message.channel.send({ embeds: [noexist_cmd] });
     }
 
     cmd.run(client, message, args);
