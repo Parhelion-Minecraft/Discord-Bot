@@ -2,6 +2,10 @@ module.exports = (client, message) => {
     const config = require('../config.json');
     const { MessageEmbed } = require('discord.js');
 
+    if (message.channel.id === config.introduction_channel) {
+        message.react("👋");
+    }
+
     if (message.channel.id === config.poll_channel) {
         const emojis = ["✔️", "❌"];
 
