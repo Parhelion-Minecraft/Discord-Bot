@@ -14,7 +14,7 @@ module.exports = client => {
         .addField("Autre", "Réagissez avec l'emoji 📯")
         .setTimestamp()
 
-    client.channels.cache.get(config.ticket_channel).send(ticket_embed)
+    client.channels.cache.get(config.ticket_channel).send({content: "cocuou", embeds: [ticket_embed ]})
         .then(message => {
             const emojis = ["❓", "🔗", "📯"];
 

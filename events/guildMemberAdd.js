@@ -8,7 +8,7 @@ module.exports = (client, member) => {
         .setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit !`)
         .setThumbnail(member.user.displayAvatarURL())
 
-    client.channels.cache.get(config.greatings_channel).send(greating_embed);
+    client.channels.cache.get(config.greatings_channel).send({ embeds: [greating_embed] });
 
     member.guild.members.cache.get(member.user.id).roles.add(config.member_role);
 }
