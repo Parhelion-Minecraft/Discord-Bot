@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
     } else {
         const hook = new WebhookClient(config.announcements_webhook["id"], config.announcements_webhook["token"]);
 
-        hook.send('', {
+        hook.send({
             "embeds": [
                 {
                     "description": message.content.replace('pm.announce', ""),
