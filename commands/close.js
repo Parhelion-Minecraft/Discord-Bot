@@ -4,6 +4,13 @@ exports.run = (client, message, args) => {
     if (message.channel.parentId === config.ticket_category) {
         message.channel.delete();
 
-        client.users.cache.get(message.channel.name).send("Votre ticket de support a été fermé.");
+        client.users.cache.get(message.channel.name).send({
+            embeds: [
+                {
+                    color: "#fbab31",
+                    description: "Votre ticket de support a été fermé."
+                }
+            ]
+        });
     }
 }
