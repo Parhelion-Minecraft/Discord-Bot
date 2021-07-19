@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
     } else {
         const hook = new WebhookClient(config.poll_webhook["id"], config.poll_webhook["token"]);
 
-        hook.send('', {
+        hook.send({
             "embeds": [
                 {
                     "description": message.content.replace('pm.poll', ""),
