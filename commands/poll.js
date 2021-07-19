@@ -17,7 +17,7 @@ exports.run = (client, message, args) => {
             "embeds": [
                 {
                     "description": message.content.replace('pm.poll', ""),
-                    "color": "#FEC8A1"
+                    "color": "#fbab31"
                 }
             ]
         })
