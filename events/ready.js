@@ -64,7 +64,7 @@ module.exports = client => {
                     {
                         "title": "Live",
                         "description": "Bonjour !\nNous sommes en live sur notre chaîne [Twitch](https://twitch.tv/ParhelionMinecraft). Rejoignez-nous !",
-                        "color": "#159997",
+                        "color": "#fbab31",
                         "author": {
                             "name": "Parhelion",
                             "icon_url": "https://i.ibb.co/6X7hqWr/50-C249-DF-A19-C-4-F8-A-B7-FD-ECDD84504-A9-D.png"
