@@ -30,3 +30,16 @@ fs.readdir("./commands/", (err, files) => {
 		client.commands.set(commandName, props);
 	});
 });
+
+client.components = new Enmap();
+
+fs.readdir("./components/", (err, files) => {
+	if (err) return console.error(err);
+	files.forEach(file => {
+		if (!file.endsWith(".js")) return;
+		let props = require(`./components/${file}`);
+		let componentName = file.split(".")[0];
+		console.log(`Chargement en cours du composant de message ${componentName}.`);
+		client.components.set(componentName, props);
+	});
+});
