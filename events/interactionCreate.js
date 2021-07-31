@@ -1,7 +1,7 @@
 module.exports = (client, interaction) => {
     const { MessageEmbed } = require('discord.js');
 
-    if (interaction.isButton()) {
+    if (interaction.isMessageComponent()) {
         const customID = interaction.customId;
 
         const component = client.components.get(customID);
