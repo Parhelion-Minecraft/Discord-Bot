@@ -1,4 +1,6 @@
 exports.run = (client, interaction) => {
+    const { MessageEmbed } = require('discord.js');
+
     switch (interaction.values[0]) {
         case "need_help":
             const help_ticket = new MessageEmbed()

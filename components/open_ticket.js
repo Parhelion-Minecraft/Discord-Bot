@@ -1,4 +1,6 @@
 exports.run = (client, interaction) => {
+    const { MessageEmbed } = require('discord.js');
+
     const config = require('../config.json');
 
     if (client.guilds.cache.get(config.server_id).channels.cache.filter(channel => channel.name === interaction.user.id).first()) {

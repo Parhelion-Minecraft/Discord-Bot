@@ -1,4 +1,6 @@
 exports.run = (client, interaction) => {
+    const { MessageEmbed } = require('discord.js');
+
     const { Octokit } = require("@octokit/core");
 
     const octokit = new Octokit({ auth: process.env.github_token });
