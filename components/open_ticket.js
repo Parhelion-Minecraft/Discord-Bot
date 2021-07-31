@@ -1,5 +1,5 @@
 exports.run = (client, interaction) => {
-    const { MessageEmbed } = require('discord.js');
+    const { MessageEmbed, MessageSelectMenu } = require('discord.js');
 
     const config = require('../config.json');
 
