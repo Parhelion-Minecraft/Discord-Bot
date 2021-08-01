@@ -1,5 +1,10 @@
 exports.run = (client, interaction) => {
-    const { MessageEmbed, MessageSelectMenu } = require('discord.js');
+    const { MessageEmbed, MessageButton, MessageSelectMenu, Message } = require('discord.js');
+
+    const closeButton = new MessageButton()
+        .setCustomId('close_ticket')
+        .setLabel("Fermer le ticket")
+        .setStyle("DANGER")
 
     switch (interaction.values[0]) {
         case "need_help":
@@ -10,7 +15,17 @@ exports.run = (client, interaction) => {
                 .setDescription("Votre ticket a bien été catégorisé comme une demande d'aide ! \nUne réponse vous sera apportée dès que possible !")
                 .addField("Bonnes habitudes :", "Pour obtenir une réponse à votre question plus rapidement, n'oubliez d'indiquer dans ce salon un maximum de détail qui pourra aider notre équipe à vous aider.")
 
-            interaction.reply({ embeds: [help_ticket] });
+            interaction.reply({
+                embeds: [help_ticket],
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            closeButton.toJSON()
+                        ]
+                    }
+                ]
+            });
             break;
 
         case "partnership":
@@ -21,7 +36,17 @@ exports.run = (client, interaction) => {
                 .setDescription("Votre ticket a bien été catégorisé comme une demande de partenariat ! \nUne réponse vous sera apportée dès que possible !")
                 .addField("Bonnes habitudes :", "Pour obtenir une réponse à votre proposition plus rapidement, n'oubliez d'indiquer dans ce salon un maximum de détail qui pourra aider notre équipe à vous donner son verdict.")
 
-            interaction.reply({ embeds: [partner_ticket] });
+            interaction.reply({
+                embeds: [partner_ticket],
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            closeButton.toJSON()
+                        ]
+                    }
+                ]
+            });
             break;
 
         case "suggest":
