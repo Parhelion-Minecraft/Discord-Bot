@@ -1,7 +1,7 @@
 exports.run = (client, interaction) => {
     const { MessageEmbed } = require('discord.js');
 
-    if (interaction.options.get('annonce').value.length > 23) {
+    if (interaction.options.get('succès').value.length > 23) {
         const too_long = new MessageEmbed()
             .setAuthor("Parhelion", interaction.guild.iconURL())
             .setTitle("Erreur")
@@ -10,6 +10,6 @@ exports.run = (client, interaction) => {
 
         interaction.reply({ embeds: [too_long] });
     } else {
-        interaction.reply(`https://minecraftskinstealer.com/achievement/1/Succès%20débloqué%20!/${interaction.options.get('annonce').value}`);
+        interaction.reply(`https://minecraftskinstealer.com/achievement/1/Succès%20débloqué%20!/${interaction.options.get('succès').value}`);
     }
 }
