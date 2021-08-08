@@ -11,7 +11,7 @@ module.exports = (client, member) => {
         database: "parhelion"
     });
 
-    //member.guild.members.cache.get(member.user.id).roles.add(config.member_role);
+    member.guild.members.cache.get(member.user.id).roles.add(config.member_role);
 
     client.guilds.cache.get(config.server_id).invites.fetch().then(guildInvites => {
         let invites = []
