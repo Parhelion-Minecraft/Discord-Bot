@@ -39,11 +39,11 @@ module.exports = (client, member) => {
 
                     connection.query(`SELECT * FROM invites WHERE inviter=${invite.inviter.id}`, function (error, results, fields) {
                         if (!results || !results[0]) {
-                            connection.query(`INSERT INTO invites (inviter, invites) VALUES (${invite.inviter.id}, 1)`);
+                            connection.query(`INSERT INTO invites (inviter, invites) VALUES (${invite.inviter.id}, "1")`);
                         } else {
                             let cInvites = results[0]["invites"];
 
-                            connection.query(`UPDATE invites SET invites=${++cInvites} WHERE inviter=${invite.inviter.id}`);
+                            connection.query(`UPDATE invites SET invites="${++cInvites}" WHERE inviter=${invite.inviter.id}`);
                         }
                     });
 
