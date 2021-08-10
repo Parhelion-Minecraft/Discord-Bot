@@ -1,6 +1,4 @@
 module.exports = (client, interaction) => {
-    const { MessageEmbed } = require('discord.js');
-
     if (interaction.isCommand()) {
         const commandName = interaction.commandName;
 
