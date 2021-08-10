@@ -25,11 +25,11 @@ module.exports = (client, member) => {
             .setThumbnail(member.user.displayAvatarURL())
 
         if (!usedInvite) {
-            greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nJe n'ai pas pu determiner par qui il a été invité.`);
+            greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nJe n'ai pas pu determiner par qui il a été invité. \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion ! Tu peux aussi te renseigner sur le concours en cours grâce à la commande \`/concours\` !`);
         } else {
             const invite = guildInvites.get(usedInvite);
-            
-            greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui !`);
+
+            greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui ! \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion ! Tu peux aussi te renseigner sur le concours en cours grâce à la commande \`/concours\` !`);
 
             client.channels.cache.get(config.greatings_channel).send({ embeds: [greating_embed] })
                 .then(() => {
