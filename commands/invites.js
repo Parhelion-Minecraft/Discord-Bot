@@ -20,13 +20,13 @@ exports.run = (client, interaction) => {
 
                 if (!results || !results[0]) {
                     countEmbed.setDescription(`Vous n'avez invité auucn membre sur notre serveur.`)
-                
+
                     interaction.reply({
                         embeds: [countEmbed]
                     });
                 } else {
                     countEmbed.setDescription(`Vous avez invité **${results[0].invites}** membres sur notre serveur. \n\nMerci à vous !`)
-                
+
                     interaction.reply({
                         embeds: [countEmbed]
                     });
@@ -41,10 +41,12 @@ exports.run = (client, interaction) => {
                     .setTitle("Leaderboard des invitations")
 
                 results.forEach(element => {
-                    console.log(element.inviter)
-                    if (!client.guilds.cache.get(config.server_id).members.cache.get(element.inviter)) return;
+                    client.users.fetch(element.inviter)
+                        .then(user => {
+                            if (!user) return;
 
-                    topEmbed.addField(client.guilds.cache.get(config.server_id).members.cache.get(element.inviter).user.username, `**${element.invites}** invitations`)
+                            topEmbed.addField(user.username, `**${element.invites}** invitations`)
+                        });
                 });
 
                 interaction.reply({
