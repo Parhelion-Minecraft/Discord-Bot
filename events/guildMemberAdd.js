@@ -23,26 +23,31 @@ module.exports = (client, member) => {
         const greating_embed = new MessageEmbed()
             .setAuthor("Parhelion", member.guild.iconURL())
             .setTitle("Bienvenue !")
-            .setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui !`)
             .setThumbnail(member.user.displayAvatarURL())
 
-        client.channels.cache.get(config.greatings_channel).send({ embeds: [greating_embed] })
-            .then(() => {
-                guildInvites.forEach(invite => {
-                    invites.push({ code: invite.code, inviter: invite.inviter.id, uses: invite.uses })
+        if (!invite) {
+            greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nJe n'ai pas pu determiner par qui il a été invité.`);
+        } else {
+            greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui !`);
+
+            client.channels.cache.get(config.greatings_channel).send({ embeds: [greating_embed] })
+                .then(() => {
+                    guildInvites.forEach(invite => {
+                        invites.push({ code: invite.code, inviter: invite.inviter.id, uses: invite.uses })
+                    });
+
+                    connection.query(`SELECT * FROM invites WHERE inviter=${invite.inviter.id}`, function (error, results, fields) {
+                        if (!results || !results[0]) {
+                            connection.query(`INSERT INTO invites (inviter, invites) VALUES (${invite.inviter.id}, 1)`);
+                        } else {
+                            let cInvites = results[0]["invites"];
+
+                            connection.query(`UPDATE invites SET invites=${++cInvites} WHERE inviter=${invite.inviter.id}`);
+                        }
+                    });
+
+                    fs.writeFileSync("invites/cache.json", JSON.stringify(invites));
                 });
-
-                connection.query(`SELECT * FROM invites WHERE inviter=${invite.inviter.id}`, function (error, results, fields) {                    
-                    if (!results || !results[0]) {
-                        connection.query(`INSERT INTO invites (inviter, invites) VALUES (${invite.inviter.id}, 1)`);
-                    } else {
-                        let cInvites = results[0]["invites"];
-
-                        connection.query(`UPDATE invites SET invites=${++cInvites} WHERE inviter=${invite.inviter.id}`);
-                    }
-                });
-
-                fs.writeFileSync("invites/cache.json", JSON.stringify(invites));
-            });
+        }
     });
 }
