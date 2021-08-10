@@ -49,9 +49,11 @@ exports.run = (client, interaction) => {
                         });
                 });
 
-                interaction.reply({
-                    embeds: [topEmbed]
-                });
+                setTimeout(function() {
+                    interaction.reply({
+                        embeds: [topEmbed]
+                    });
+                }, 1000);
             });
         break;
     }
