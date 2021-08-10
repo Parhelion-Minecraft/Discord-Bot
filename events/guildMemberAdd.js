@@ -19,19 +19,19 @@ module.exports = (client, member) => {
         const ei = JSON.parse(fs.readFileSync("invites/cache.json").toString());
         const usedInvite = ei.filter(invite => invite.uses < guildInvites.get(invite.code).uses)[0].code;
 
-        const greating_embed = new MessageEmbed()
+        const greeting_embed = new MessageEmbed()
             .setAuthor("Parhelion", member.guild.iconURL())
             .setTitle("Bienvenue !")
             .setThumbnail(member.user.displayAvatarURL())
 
         if (!usedInvite) {
-            greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nJe n'ai pas pu determiner par qui il a été invité. \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion ! Tu peux aussi te renseigner sur le concours en cours grâce à la commande \`/concours\` !`);
+            greeting_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nJe n'ai pas pu determiner par qui il a été invité. \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion ! Tu peux aussi te renseigner sur le concours en cours grâce à la commande \`/concours\` !`);
         } else {
             const invite = guildInvites.get(usedInvite);
 
-            greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui ! \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion ! Tu peux aussi te renseigner sur le concours en cours grâce à la commande \`/concours\` !`);
+            greeting_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui ! \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion ! Tu peux aussi te renseigner sur le concours en cours grâce à la commande \`/concours\` !`);
 
-            client.channels.cache.get(config.greatings_channel).send({ embeds: [greating_embed] })
+            client.channels.cache.get(config.greetings_channel).send({ embeds: [greeting_embed] })
                 .then(() => {
                     guildInvites.forEach(invite => {
                         invites.push({ code: invite.code, inviter: invite.inviter.id, uses: invite.uses })
