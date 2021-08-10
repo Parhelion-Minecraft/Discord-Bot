@@ -18,16 +18,17 @@ module.exports = (client, member) => {
 
         const ei = JSON.parse(fs.readFileSync("invites/cache.json").toString());
         const usedInvite = ei.filter(invite => invite.uses < guildInvites.get(invite.code).uses)[0].code;
-        const invite = guildInvites.get(usedInvite);
 
         const greating_embed = new MessageEmbed()
             .setAuthor("Parhelion", member.guild.iconURL())
             .setTitle("Bienvenue !")
             .setThumbnail(member.user.displayAvatarURL())
 
-        if (!invite) {
+        if (!usedInvite) {
             greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nJe n'ai pas pu determiner par qui il a été invité.`);
         } else {
+            const invite = guildInvites.get(usedInvite);
+            
             greating_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui !`);
 
             client.channels.cache.get(config.greatings_channel).send({ embeds: [greating_embed] })
