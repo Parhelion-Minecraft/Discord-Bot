@@ -1,6 +1,4 @@
 exports.run = (client, interaction) => {
-    const config = require('../config.json');
-
     const { MessageEmbed } = require("discord.js");
     const mysql = require('mysql');
 
