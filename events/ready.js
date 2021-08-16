@@ -5,13 +5,16 @@ module.exports = client => {
 
     console.log('Bot lancé avec succès !');
 
-    client.guilds.cache.get(config.server_id).invites.fetch().then(guildInvites => {
-        let invites = []
+    client.guilds.fetch(config.server_id)
+        .then(guild => {
+            guild.invites.fetch().then(guildInvites => {
+                let invites = [];
 
-        guildInvites.forEach(invite => {
-            invites.push({ code: invite.code, inviter: invite.inviter.id, uses: invite.uses })
+                guildInvites.forEach(invite => {
+                    invites.push({ code: invite.code, inviter: invite.inviter.id, uses: invite.uses })
+                });
+
+                fs.writeFileSync("invites/cache.json", JSON.stringify(invites));
+            });
         });
-
-        fs.writeFileSync("invites/cache.json", JSON.stringify(invites));
-    });
 }
