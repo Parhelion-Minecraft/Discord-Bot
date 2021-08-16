@@ -31,23 +31,26 @@ module.exports = (client, member) => {
 
             greeting_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui ! \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion ! Tu peux aussi te renseigner sur le concours en cours grâce à la commande \`/concours\` !`);
 
-            client.channels.cache.get(config.greetings_channel).send({ embeds: [greeting_embed] })
-                .then(() => {
-                    guildInvites.forEach(invite => {
-                        invites.push({ code: invite.code, inviter: invite.inviter.id, uses: invite.uses })
-                    });
+            client.channels.fetch(config.greetings_channel)
+                .then(channel => {
+                    channel.send({ embeds: [greeting_embed] })
+                        .then(() => {
+                            guildInvites.forEach(invite => {
+                                invites.push({ code: invite.code, inviter: invite.inviter.id, uses: invite.uses })
+                            });
 
-                    connection.query(`SELECT * FROM invites WHERE inviter=${invite.inviter.id}`, function (error, results, fields) {
-                        if (!results || !results[0]) {
-                            connection.query(`INSERT INTO invites (inviter, invites) VALUES (${invite.inviter.id}, "1")`);
-                        } else {
-                            let cInvites = results[0]["invites"];
+                            connection.query(`SELECT * FROM invites WHERE inviter=${invite.inviter.id}`, function (error, results, fields) {
+                                if (!results || !results[0]) {
+                                    connection.query(`INSERT INTO invites (inviter, invites) VALUES (${invite.inviter.id}, "1")`);
+                                } else {
+                                    let cInvites = results[0]["invites"];
 
-                            connection.query(`UPDATE invites SET invites="${++cInvites}" WHERE inviter=${invite.inviter.id}`);
-                        }
-                    });
+                                    connection.query(`UPDATE invites SET invites="${++cInvites}" WHERE inviter=${invite.inviter.id}`);
+                                }
+                            });
 
-                    fs.writeFileSync("invites/cache.json", JSON.stringify(invites));
+                            fs.writeFileSync("invites/cache.json", JSON.stringify(invites));
+                        });
                 });
         }
     });
