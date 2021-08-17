@@ -16,7 +16,7 @@ exports.run = (client, interaction) => {
         hook.send({
             "embeds": [
                 {
-                    "description": interaction.options.get('annonce').value,
+                    "description": interaction.options.get('annonce').value.replace(/<br>/g, '\n'),
                     "color": "#f57e2c"
                 }
             ]
