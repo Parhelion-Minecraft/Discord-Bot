@@ -1,6 +1,10 @@
 exports.run = (client, interaction) => {
     const { MessageEmbed, MessageCollector } = require('discord.js');
 
+    if (interaction.user.id != interaction.message.channel.name) {
+        return interaction.reply({ content: "Vous ne pouvez interagir qu'avec les tickets que vous avez ouverts." });
+    }
+
     var repo;
 
     switch (interaction.values[0]) {

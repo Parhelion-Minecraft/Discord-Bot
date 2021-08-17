@@ -1,6 +1,10 @@
 exports.run = (client, interaction) => {
     const { MessageEmbed, MessageButton, MessageSelectMenu } = require('discord.js');
 
+    if (interaction.user.id != interaction.message.channel.name) {
+        return interaction.reply({ content: "Vous ne pouvez interagir qu'avec les tickets que vous avez ouverts." });
+    }
+
     const closeButton = new MessageButton()
         .setCustomId('close_ticket')
         .setLabel("Fermer le ticket")
