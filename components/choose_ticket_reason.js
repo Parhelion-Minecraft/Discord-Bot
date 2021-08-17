@@ -1,5 +1,5 @@
 exports.run = (client, interaction) => {
-    const { MessageEmbed, MessageButton, MessageSelectMenu, Message } = require('discord.js');
+    const { MessageEmbed, MessageButton, MessageSelectMenu } = require('discord.js');
 
     const closeButton = new MessageButton()
         .setCustomId('close_ticket')
