@@ -1,5 +1,5 @@
 exports.run = (client, interaction) => {
-    const { MessageEmbed } = require('discord.js');
+    const { MessageEmbed, MessageCollector } = require('discord.js');
 
     const { Octokit } = require("@octokit/core");
 
