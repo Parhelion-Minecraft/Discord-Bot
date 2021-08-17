@@ -63,6 +63,8 @@ exports.run = (client, interaction) => {
             const select_sug = new MessageSelectMenu()
                 .setCustomId("choose_sug_target")
                 .setPlaceholder("Quel service est concerné par votre suggestion ?")
+                .addOptions({ label: "Serveur Discord", value: "discord_guild", description: "Le serveur Discord de Parhelion", emoji: "💬" })
+                .addOptions({ label: "Serveur Minecraft", value: "minecraft_server", description: "Le serveur Minecraft de Parhelion", emoji: "🎮" })
                 .addOptions({ label: "Bot Discord", value: "discord_bot", description: "Le bot Parhelion Bot sur notre serveur Discord", emoji: "🤖" })
                 .addOptions({ label: "Bot Twitch", value: "twitch_bot", description: "Le bot Parhelion Bot sur notre chaîne Twitch", emoji: "🤖" })
 
