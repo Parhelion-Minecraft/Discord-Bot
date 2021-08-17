@@ -1,9 +1,9 @@
 exports.run = (client, interaction) => {
-    const { MessageEmbed, MessageCollector } = require('discord.js');
+    const { MessageEmbed } = require('discord.js');
 
-    if (interaction.user.id != interaction.message.channel.name) {
-        return interaction.reply({ content: "Vous ne pouvez interagir qu'avec les tickets que vous avez ouverts." });
-    }
+    const { Octokit } = require("@octokit/core");
+
+    const octokit = new Octokit({ auth: process.env.github_token });
 
     var repo;
 
