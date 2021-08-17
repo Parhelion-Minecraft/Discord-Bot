@@ -1,6 +1,5 @@
 module.exports = client => {
     const config = require('../config.json');
-    const { WebhookClient } = require('discord.js');
     const fs = require('fs');
 
     console.log('Bot lancé avec succès !');
