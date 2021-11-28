@@ -22,7 +22,7 @@ module.exports = (client, message) => {
     const mysql = require('mysql');
 
     const connection = new mysql.createConnection({
-        host: "lraspberrypi.zapto.org",
+        host: process.env.dbHost,
         user: process.env.dbUsername,
         password: process.env.dbPassword,
         database: "parhelion"

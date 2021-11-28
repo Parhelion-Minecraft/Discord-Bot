@@ -3,7 +3,7 @@ exports.run = (client, interaction) => {
     const mysql = require('mysql');
 
     const connection = mysql.createConnection({
-        host: "lraspberrypi.zapto.org",
+        host: process.env.dbHost,
         user: process.env.dbUsername,
         password: process.env.dbPassword,
         database: "parhelion"
@@ -38,13 +38,15 @@ exports.run = (client, interaction) => {
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setTitle("Leaderboard des invitations")
 
-                results.forEach(element => {
-                    client.users.fetch(element.inviter)
-                        .then(user => {
-                            if (!user) return;
+                results.forEach((element, i) => {
+                    setTimeout(() => {
+                        client.users.fetch(element.inviter)
+                            .then(user => {
+                                if (!user) return;
 
-                            topEmbed.addField(user.username, `**${element.invites}** invitations`)
-                        });
+                                topEmbed.addField(user.username, `**${element.invites}** invitations`)
+                            });
+                    }, i * 200);
                 });
 
                 setTimeout(function() {

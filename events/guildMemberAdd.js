@@ -5,7 +5,7 @@ module.exports = (client, member) => {
     const mysql = require('mysql');
 
     const connection = new mysql.createConnection({
-        host: "lraspberrypi.zapto.org",
+        host: process.env.dbHost,
         user: process.env.dbUsername,
         password: process.env.dbPassword,
         database: "parhelion"
@@ -14,22 +14,31 @@ module.exports = (client, member) => {
     member.guild.members.cache.get(member.user.id).roles.add(config.member_role);
 
     client.guilds.cache.get(config.server_id).invites.fetch().then(guildInvites => {
-        let invites = []
-
-        const ei = JSON.parse(fs.readFileSync("invites/cache.json").toString());
-        const usedInvite = ei.filter(invite => invite.uses < guildInvites.get(invite.code).uses)[0].code;
+        let invites = [];
 
         const greeting_embed = new MessageEmbed()
             .setAuthor("Parhelion", member.guild.iconURL())
             .setTitle("Bienvenue !")
             .setThumbnail(member.user.displayAvatarURL())
 
+        if (!guildInvites.get(invite.code)) {
+            greeting_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nJe n'ai pas pu determiner par qui il a été invité. \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion et à aller dans <#877074328892612639> pour choisir tes rôles !`);
+
+            client.channels.fetch(config.greetings_channel)
+                .then(channel => {
+                    return channel.send({ embeds: [greeting_embed] });
+                });
+        }
+
+        const ei = JSON.parse(fs.readFileSync("invites/cache.json").toString());
+        const usedInvite = ei.filter(invite => invite.uses < guildInvites.get(invite.code).uses)[0].code;
+
         if (!usedInvite) {
-            greeting_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nJe n'ai pas pu determiner par qui il a été invité. \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion et à aller dans <#877074328892612639> pour choisir tes rôles ! Tu peux aussi te renseigner sur le concours en cours grâce à la commande \`/concours\` !`);
+            greeting_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nJe n'ai pas pu determiner par qui il a été invité. \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion et à aller dans <#877074328892612639> pour choisir tes rôles !`);
         } else {
             const invite = guildInvites.get(usedInvite);
 
-            greeting_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui ! \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion et à aller dans <#877074328892612639> pour choisir tes rôles ! Tu peux aussi te renseigner sur le concours en cours grâce à la commande \`/concours\` !`);
+            greeting_embed.setDescription(`<@${member.user.id}> vient de rejoindre **Parhelion Minecraft** ! \nAccueillez-le comme il se doit ! \n\nIl a été invité par **${invite.inviter.username}**. Merci à lui ! \n\n Je t'invite à consulter le salon <#871449994773807115> pour en apprendre plus sur Parhelion et à aller dans <#877074328892612639> pour choisir tes rôles !`);
 
             client.channels.fetch(config.greetings_channel)
                 .then(channel => {
