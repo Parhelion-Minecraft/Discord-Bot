@@ -34,6 +34,7 @@ exports.run = (client, interaction) => {
                         .addOptions({ label: "Partenariat", value: "partnership", description: "Nous proposer un partenariat", emoji: "🔗" })
                         .addOptions({ label: "Suggestion", value: "suggest", description: "Soumettre une suggestion à notre équipe", emoji: "💡" })
                         .addOptions({ label: "Bug", value: "bug", description: "Reporter un bug à notre équipe", emoji: "🐛" })
+			.addOptions({ label: "Commande build", value: "build", "Passer commande d'un build", emoji: "🏗️");
 
                     const info = new MessageEmbed()
                         .setAuthor("Configuration ticket", client.user.displayAvatarURL())

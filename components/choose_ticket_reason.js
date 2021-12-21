@@ -30,7 +30,7 @@ exports.run = (client, interaction) => {
                     }
                 ]
             });
-            break;
+        break;
 
         case "partnership":
             const partner_ticket = new MessageEmbed()
@@ -51,7 +51,7 @@ exports.run = (client, interaction) => {
                     }
                 ]
             });
-            break;
+        break;
 
         case "suggest":
             const sug_embed = new MessageEmbed()
@@ -79,7 +79,7 @@ exports.run = (client, interaction) => {
                     }
                 ]
             });
-            break;
+        break;
 
         case "bug":
             const bug_embed = new MessageEmbed()
@@ -105,6 +105,27 @@ exports.run = (client, interaction) => {
                     }
                 ]
             });
-            break;
+        break;
+
+        case "build":
+            const build_ticket = new MessageEmbed()
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                .setColor("#fbab31")
+                .setTitle("Ticket catégorisé")
+                .setDescription("Votre ticket a bien été catégorisé comme une demande de build ! \nUne réponse vous sera apportée dès que possible !")
+                .addField("Bonnes habitudes :", "Pour obtenir une réponse à votre question plus rapidement, n'oubliez d'indiquer dans ce salon un maximum de détail qui pourra aider notre équipe à vous aider tels que votre cahier des charges, votre budget, etc.")
+
+            interaction.reply({
+                embeds: [build_ticket],
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            closeButton.toJSON()
+                        ]
+                    }
+                ]
+            });
+        break;
     }
 }
